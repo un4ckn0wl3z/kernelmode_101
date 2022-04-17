@@ -1,0 +1,80 @@
+;
+; kernelmode_101.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=System ; TODO: specify appropriate Class
+ClassGuid={4d36e97d-e325-11ce-bfc1-08002be10318} ; TODO: specify appropriate ClassGuid
+Provider=%ManufacturerName%
+CatalogFile=kernelmode_101.cat
+DriverVer = 04/17/2022,18.27.49.255
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 12
+kernelmode_101_Device_CoInstaller_CopyFiles = 11
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+kernelmode_101.sys  = 1,,
+;
+
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NTamd64
+
+[Standard.NTamd64]
+%kernelmode_101.DeviceDesc%=kernelmode_101_Device, Root\kernelmode_101 ; TODO: edit hw-id
+
+[kernelmode_101_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+kernelmode_101.sys
+
+;-------------- Service installation
+[kernelmode_101_Device.NT.Services]
+AddService = kernelmode_101,%SPSVCINST_ASSOCSERVICE%, kernelmode_101_Service_Inst
+
+; -------------- kernelmode_101 driver install sections
+[kernelmode_101_Service_Inst]
+DisplayName    = %kernelmode_101.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\kernelmode_101.sys
+
+;
+;--- kernelmode_101_Device Coinstaller installation ------
+;
+
+[kernelmode_101_Device.NT.CoInstallers]
+AddReg=kernelmode_101_Device_CoInstaller_AddReg
+CopyFiles=kernelmode_101_Device_CoInstaller_CopyFiles
+
+[kernelmode_101_Device_CoInstaller_AddReg]
+;
+
+
+[kernelmode_101_Device_CoInstaller_CopyFiles]
+;
+
+
+[kernelmode_101_Device.NT.Wdf]
+KmdfService =  kernelmode_101, kernelmode_101_wdfsect
+[kernelmode_101_wdfsect]
+KmdfLibraryVersion = 1.15
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="<Your manufacturer name>" ;TODO: Replace with your manufacturer name
+DiskName = "kernelmode_101 Installation Disk"
+kernelmode_101.DeviceDesc = "kernelmode_101 Device"
+kernelmode_101.SVCDESC = "kernelmode_101 Service"

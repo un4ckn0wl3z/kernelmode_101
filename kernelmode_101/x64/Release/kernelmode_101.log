@@ -1,0 +1,9 @@
+﻿  Building 'kernelmode_101' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
+  Stamping x64\Release\kernelmode_101.inf
+  Stamping [Version] section with DriverVer=04/17/2022,18.27.49.255
+  driver.c
+  kernelmode_101.vcxproj -> C:\Users\anuwat\source\repos\kernelmode_101\x64\Release\kernelmode_101.sys
+  Done Adding Additional Store
+  Successfully signed: C:\Users\anuwat\source\repos\kernelmode_101\x64\Release\kernelmode_101.sys
+  
+  Driver is 'Universal'.
